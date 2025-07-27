@@ -1,19 +1,12 @@
-import React, { useState, useMemo, useEffect, useRef } from 'react';
-// Like in the Login component, `useActionState` and `useFormStatus` are
-// experimental hooks provided by the `react-dom` package rather than `react`.
-// Importing them from `react` leads to undefined values during runtime.
-// Import `useFormStatus` for potential future use, though we no longer rely on
-// `useActionState`.  Keeping `useFormStatus` here in case you wish to
-// implement custom pending indicators at the field level.
-import { useFormStatus } from 'react-dom';
+import React, { useState, useMemo, useRef } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
-import { Card } from './ui/Card';
-import { Button } from './ui/Button';
-import { Input } from './ui/Input';
-import { submitBookingRequest } from '../services/api';
-import { UserIcon } from './icons/UserIcon';
-import { PhoneIcon } from './icons/PhoneIcon';
-import { RECAPTCHA_SITE_KEY } from '../config';
+import { Card } from './Card';
+import { Button } from './Button';
+import { Input } from './Input';
+import { submitBookingRequest } from './api';
+import { UserIcon } from './UserIcon';
+import { PhoneIcon } from './PhoneIcon';
+import { RECAPTCHA_SITE_KEY } from './config';
 
 // Helper function to get the next 5 weekdays
 const getNextWeekdays = () => {
@@ -38,15 +31,6 @@ const getNextWeekdays = () => {
     return days;
 };
 
-type FormState = {
-  error: string | null;
-  isSuccess: boolean;
-};
-
-const initialState: FormState = {
-  error: null,
-  isSuccess: false,
-};
 
 // Render a submit button with explicit loading state.  Using our own loading
 // indicator avoids reliance on the experimental `useActionState` hook.

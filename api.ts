@@ -1,5 +1,5 @@
 
-import { db, serverTimestamp } from '../firebase';
+import { db, serverTimestamp } from './firebase';
 import {
     collection,
     query,
@@ -12,7 +12,7 @@ import {
     where,
     limit,
     Timestamp,
-    DocumentSnapshot,
+    QueryDocumentSnapshot,
     DocumentData,
 } from 'firebase/firestore';
 import { 
@@ -21,9 +21,9 @@ import {
     ReferralStatus, 
     BookingRequest, 
     BookingStatus 
-} from '../types';
+} from './types';
 
-const toReferral = (docSnap: DocumentSnapshot<DocumentData>): Referral => {
+const toReferral = (docSnap: QueryDocumentSnapshot<DocumentData>): Referral => {
     const data = docSnap.data()!;
     const submissionDate = data.submissionDate && typeof (data.submissionDate as Timestamp).toDate === 'function'
         ? (data.submissionDate as Timestamp).toDate().toISOString().split('T')[0]
@@ -39,7 +39,7 @@ const toReferral = (docSnap: DocumentSnapshot<DocumentData>): Referral => {
     };
 };
 
-const toReferrer = (docSnap: DocumentSnapshot<DocumentData>): Referrer => {
+const toReferrer = (docSnap: QueryDocumentSnapshot<DocumentData>): Referrer => {
     const data = docSnap.data()!;
     return {
         id: docSnap.id,
@@ -48,7 +48,9 @@ const toReferrer = (docSnap: DocumentSnapshot<DocumentData>): Referrer => {
     };
 };
 
-const toBookingRequest = (docSnap: DocumentSnapshot<DocumentData>): BookingRequest => {
+const toBookingRequest = (
+  docSnap: QueryDocumentSnapshot<DocumentData>
+): BookingRequest => {
     const data = docSnap.data()!;
     const submissionDate = data.submissionDate && typeof (data.submissionDate as Timestamp).toDate === 'function'
         ? (data.submissionDate as Timestamp).toDate().toISOString().split('T')[0]
@@ -93,24 +95,31 @@ export const submitReferral = async (data: { recommendedName: string; referrerNa
 
   if (data.referrerName) {
     const referrersColRef = collection(db, 'referrers');
-    const referrersQuery = query(referrersColRef, where('name', '==', data.referrerName), limit(1));
-    
+    const referrersQuery = query(
+      referrersColRef,
+      where('name', '==', data.referrerName),
+      limit(1)
+    );
+    const querySnapshot = await getDocs(referrersQuery);
+
     await runTransaction(db, async (transaction) => {
-        const querySnapshot = await transaction.get(referrersQuery);
+      const newReferralRef = doc(referralsColRef);
+      transaction.set(newReferralRef, newReferralData);
 
-        const newReferralRef = doc(referralsColRef);
-        transaction.set(newReferralRef, newReferralData);
-
-        if (querySnapshot.empty) {
-            // If referrer doesn't exist, create them with a count of 1.
-            const newReferrerRef = doc(referrersColRef);
-            transaction.set(newReferrerRef, { name: data.referrerName, referralCount: 1 });
-        } else {
-            // If referrer exists, increment their referral count.
-            const referrerDocRef = querySnapshot.docs[0].ref;
-            const newCount = (querySnapshot.docs[0].data()?.referralCount || 0) + 1;
-            transaction.update(referrerDocRef, { referralCount: newCount });
-        }
+      if (querySnapshot.empty) {
+        // If referrer doesn't exist, create them with a count of 1.
+        const newReferrerRef = doc(referrersColRef);
+        transaction.set(newReferrerRef, {
+          name: data.referrerName,
+          referralCount: 1,
+        });
+      } else {
+        // If referrer exists, increment their referral count.
+        const referrerDocRef = querySnapshot.docs[0].ref;
+        const newCount =
+          (querySnapshot.docs[0].data()?.referralCount || 0) + 1;
+        transaction.update(referrerDocRef, { referralCount: newCount });
+      }
     });
   } else {
     await addDoc(referralsColRef, newReferralData);

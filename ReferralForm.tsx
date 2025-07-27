@@ -1,12 +1,12 @@
 import React, { useState, useRef } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
-import { Card } from './ui/Card';
-import { Input } from './ui/Input';
-import { Button } from './ui/Button';
-import { submitReferral } from '../services/api';
-import { UserIcon } from './icons/UserIcon';
-import { CalendarIcon } from './icons/CalendarIcon';
-import { RECAPTCHA_SITE_KEY } from '../config';
+import { Card } from './Card';
+import { Input } from './Input';
+import { Button } from './Button';
+import { submitReferral } from './api';
+import { UserIcon } from './UserIcon';
+import { CalendarIcon } from './CalendarIcon';
+import { RECAPTCHA_SITE_KEY } from './config';
 
 /**
  * A form that allows users to recommend a new contact. This component uses

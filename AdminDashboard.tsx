@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
-import { getReferrals, getReferrers, updateReferralStatus, getBookingRequests, updateBookingRequestStatus } from '../services/api';
-import { Referral, Referrer, ReferralStatus, BadgeTier, BookingRequest, BookingStatus } from '../types';
-import { BADGE_THRESHOLDS } from '../constants';
-import { Card } from './ui/Card';
-import { Badge } from './ui/Badge';
-import { Button } from './ui/Button';
-import { UserIcon } from './icons/UserIcon';
-import { CalendarIcon } from './icons/CalendarIcon';
-import { PhoneIcon } from './icons/PhoneIcon';
+import { getReferrals, getReferrers, updateReferralStatus, getBookingRequests, updateBookingRequestStatus } from './api';
+import { Referral, Referrer, ReferralStatus, BadgeTier, BookingRequest, BookingStatus } from './types';
+import { BADGE_THRESHOLDS } from './constants';
+import { Card } from './Card';
+import { Badge } from './Badge';
+import { Button } from './Button';
+import { UserIcon } from './UserIcon';
+import { CalendarIcon } from './CalendarIcon';
+import { PhoneIcon } from './PhoneIcon';
 
 const getBadgeTier = (count: number): BadgeTier => {
   if (count >= BADGE_THRESHOLDS.Platinum) return BadgeTier.Platinum;

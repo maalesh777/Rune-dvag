@@ -9,12 +9,12 @@ import React, { useState } from 'react';
 // implement our own loading and error handling within the component.
 import { useNavigate } from 'react-router-dom';
 import ReCAPTCHA from 'react-google-recaptcha';
-import { Card } from './ui/Card';
-import { Input } from './ui/Input';
-import { Button } from './ui/Button';
-import { auth } from '../firebase';
+import { Card } from './Card';
+import { Input } from './Input';
+import { Button } from './Button';
+import { auth } from './firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { RECAPTCHA_SITE_KEY } from '../config';
+import { RECAPTCHA_SITE_KEY } from './config';
 
 // Simple Mail Icon
 const MailIcon: React.FC<{className?: string}> = ({className}) => (
