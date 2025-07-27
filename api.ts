@@ -1,5 +1,5 @@
 
-import { db, serverTimestamp } from '../firebase';
+import { db, serverTimestamp } from './firebase';
 import {
     collection,
     query,
@@ -21,7 +21,7 @@ import {
     ReferralStatus, 
     BookingRequest, 
     BookingStatus 
-} from '../types';
+} from './types';
 
 const toReferral = (docSnap: DocumentSnapshot<DocumentData>): Referral => {
     const data = docSnap.data()!;

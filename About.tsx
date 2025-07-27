@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card } from './ui/Card';
-import { Button } from './ui/Button';
+import { Card } from './Card';
+import { Button } from './Button';
 
 interface ServiceCardProps {
     icon: string;

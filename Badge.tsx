@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { BadgeTier } from '../../types';
-import { BADGE_STYLES } from '../../constants';
+import { BadgeTier } from './types';
+import { BADGE_STYLES } from './constants';
 
 interface BadgeProps {
   tier: BadgeTier;

@@ -6,7 +6,7 @@ import { getFirestore, serverTimestamp, Firestore } from 'firebase/firestore';
 import { initializeAppCheck, ReCaptchaV3Provider, AppCheck } from 'firebase/app-check';
 
 // Import application configuration constants
-import { APP_CHECK_SITE_KEY } from '../config';
+import { APP_CHECK_SITE_KEY } from './config';
 
 /**
  * Firebase configuration for this project. These values are specific to your

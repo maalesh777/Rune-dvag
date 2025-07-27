@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { Button } from './ui/Button';
-import { MenuIcon } from './icons/MenuIcon';
-import { XIcon } from './icons/XIcon';
-import { auth } from '../firebase';
+import { Button } from './Button';
+import { MenuIcon } from './MenuIcon';
+import { XIcon } from './XIcon';
+import { auth } from './firebase';
 
 interface HeaderProps {
   isLoggedIn: boolean;

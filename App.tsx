@@ -1,13 +1,13 @@
 
 import React, { useState, useEffect } from 'react';
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { Header } from './components/Header';
-import { Footer } from './components/Footer';
-import { ReferralForm } from './components/ReferralForm';
-import { About } from './components/About';
-import { Booking } from './components/Booking';
-import { Login } from './components/Login';
-import { AdminDashboard } from './components/AdminDashboard';
+import { Header } from './Header';
+import { Footer } from './Footer';
+import { ReferralForm } from './ReferralForm';
+import { About } from './About';
+import { Booking } from './Booking';
+import { Login } from './Login';
+import { AdminDashboard } from './AdminDashboard';
 import { auth } from './firebase';
 import { User } from 'firebase/auth';
 

@@ -7,13 +7,13 @@ import React, { useState, useMemo, useEffect, useRef } from 'react';
 // implement custom pending indicators at the field level.
 import { useFormStatus } from 'react-dom';
 import ReCAPTCHA from 'react-google-recaptcha';
-import { Card } from './ui/Card';
-import { Button } from './ui/Button';
-import { Input } from './ui/Input';
-import { submitBookingRequest } from '../services/api';
-import { UserIcon } from './icons/UserIcon';
-import { PhoneIcon } from './icons/PhoneIcon';
-import { RECAPTCHA_SITE_KEY } from '../config';
+import { Card } from './Card';
+import { Button } from './Button';
+import { Input } from './Input';
+import { submitBookingRequest } from './api';
+import { UserIcon } from './UserIcon';
+import { PhoneIcon } from './PhoneIcon';
+import { RECAPTCHA_SITE_KEY } from './config';
 
 // Helper function to get the next 5 weekdays
 const getNextWeekdays = () => {
